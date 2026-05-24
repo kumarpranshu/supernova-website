@@ -1,57 +1,128 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Supernova Database</title>
 
     <style>
+
         body{
             font-family: Arial, sans-serif;
             background:#111;
             color:white;
             margin:0;
-            padding:20px;
+            padding:30px;
         }
 
         h1{
             text-align:center;
+            margin-bottom:10px;
         }
 
-        .grid{
-            display:grid;
-            grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-            gap:20px;
-            margin-top:30px;
+        p{
+            text-align:center;
+            color:#cccccc;
         }
 
-        .card{
+        .download-all{
+            text-align:center;
+            margin:25px 0;
+        }
+
+        .download-all a{
+            background:#2979ff;
+            color:white;
+            padding:12px 20px;
+            text-decoration:none;
+            border-radius:8px;
+            font-weight:bold;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            margin-top:20px;
             background:#1e1e1e;
             border-radius:10px;
-            padding:15px;
+            overflow:hidden;
         }
 
-        img{
-            width:100%;
-            border-radius:10px;
-            background:white;
+        th{
+            background:#222;
+            padding:14px;
+            text-align:left;
+        }
+
+        td{
+            padding:12px 14px;
+            border-top:1px solid #333;
+        }
+
+        tr:hover{
+            background:#2a2a2a;
         }
 
         a{
             color:#4da3ff;
+            text-decoration:none;
+            font-weight:bold;
         }
 
-        .meta{
-            margin-top:10px;
-            line-height:1.6;
+        .downloads a{
+            margin-right:12px;
         }
+
+        @media(max-width:900px){
+
+            body{
+                padding:10px;
+            }
+
+            table{
+                font-size:13px;
+            }
+
+        }
+
     </style>
+
 </head>
+
 <body>
 
-<h1>Supernova Database</h1>
+    <h1>Supernova Database</h1>
 
-<div class="grid" id="container"></div>
+    <p>
+        Public light curves and photometric data products.
+    </p>
+
+    <div class="download-all">
+        <a href="public/files/all_supernova_data.csv" download>
+            Download All Data as CSV
+        </a>
+    </div>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>RA</th>
+                <th>Dec</th>
+                <th>Discovery Date</th>
+                <th>Downloads</th>
+            </tr>
+
+        </thead>
+
+        <tbody id="tableBody"></tbody>
+
+    </table>
 
 <script>
 
@@ -60,6 +131,9 @@ const supernovae = [
     {
         name:"SN2023ixf",
         type:"II",
+        ra:"14:03:38.56",
+        dec:"+54:18:41.9",
+        discoveryDate:"2023-05-19",
         image:"public/files/lightcurve_SN2023ixf.png",
         data:"public/files/combined_photometry_SN2023ixf.txt"
     },
@@ -67,6 +141,9 @@ const supernovae = [
     {
         name:"SN2023mut",
         type:"IIb",
+        ra:"04:48:34.35",
+        dec:"+00:14:48.3",
+        discoveryDate:"2023-06-12",
         image:"public/files/lightcurve_SN2023mut.png",
         data:"public/files/combined_photometry_SN2023mut.txt"
     },
@@ -74,6 +151,9 @@ const supernovae = [
     {
         name:"SN2023rvj",
         type:"II",
+        ra:"00:09:57.10",
+        dec:"+37:04:27.2",
+        discoveryDate:"2023-08-05",
         image:"public/files/lightcurve_SN2023rvj.png",
         data:"public/files/combined_photometry_SN2023rvj.txt"
     },
@@ -81,6 +161,9 @@ const supernovae = [
     {
         name:"SN2025advo",
         type:"II",
+        ra:"09:55:12.3",
+        dec:"+45:33:21.8",
+        discoveryDate:"2025-01-10",
         image:"public/files/lightcurve_2025advo.png",
         data:"public/files/lightcurve_2025advo.csv"
     },
@@ -88,6 +171,9 @@ const supernovae = [
     {
         name:"SN2022wpy",
         type:"Ia",
+        ra:"14:22:33.4",
+        dec:"+32:11:45.9",
+        discoveryDate:"2022-11-28",
         image:"public/files/lightcurve_SN2022wpy.png",
         data:"public/files/lightcurve_SN2022wpy.txt"
     },
@@ -95,6 +181,9 @@ const supernovae = [
     {
         name:"SN2023axu",
         type:"II",
+        ra:"11:33:44.5",
+        dec:"+25:44:55.6",
+        discoveryDate:"2023-03-15",
         image:"public/files/lightcurve_SN2023axu.png",
         data:"public/files/lightcurve_SN2023axu.txt"
     },
@@ -102,6 +191,9 @@ const supernovae = [
     {
         name:"SN2023azx",
         type:"Ib-c",
+        ra:"08:12:55.6",
+        dec:"-05:22:33.4",
+        discoveryDate:"2023-04-02",
         image:"public/files/lightcurve_SN2023azx.png",
         data:"public/files/lightcurve_SN2023azx.txt"
     },
@@ -109,6 +201,9 @@ const supernovae = [
     {
         name:"SN2023bee",
         type:"Ia",
+        ra:"16:44:12.3",
+        dec:"+36:55:44.1",
+        discoveryDate:"2023-04-22",
         image:"public/files/lightcurve_SN2023bee.png",
         data:"public/files/lightcurve_SN2023bee.txt"
     },
@@ -116,6 +211,9 @@ const supernovae = [
     {
         name:"SN2023xtg",
         type:"Ia",
+        ra:"01:49:05.59",
+        dec:"-14:59:12.5",
+        discoveryDate:"2023-11-15",
         image:"public/files/lightcurve_SN2023xtg.png",
         data:"public/files/lightcurve_SN2023xtg.txt"
     },
@@ -123,6 +221,9 @@ const supernovae = [
     {
         name:"SN2024cld",
         type:"II",
+        ra:"15:50:21.55",
+        dec:"+18:56:20.2",
+        discoveryDate:"2024-02-23",
         image:"public/files/lightcurve_SN2024cld.png",
         data:"public/files/lightcurve_SN2024cld.txt"
     },
@@ -130,6 +231,9 @@ const supernovae = [
     {
         name:"SN2024drv",
         type:"II",
+        ra:"10:22:11.3",
+        dec:"+28:45:12.7",
+        discoveryDate:"2024-05-12",
         image:"public/files/lightcurve_SN2024drv.png",
         data:"public/files/lightcurve_SN2024drv.txt"
     },
@@ -137,6 +241,9 @@ const supernovae = [
     {
         name:"SN2024dy",
         type:"Ib",
+        ra:"18:55:33.2",
+        dec:"+12:44:55.6",
+        discoveryDate:"2024-06-20",
         image:"public/files/lightcurve_SN2024dy.png",
         data:"public/files/lightcurve_SN2024dy.txt"
     },
@@ -144,6 +251,9 @@ const supernovae = [
     {
         name:"SN2022aagp",
         type:"II",
+        ra:"03:12:45.6",
+        dec:"+41:22:33.4",
+        discoveryDate:"2022-10-15",
         image:"public/files/lightcurve_subtracted_2022aagp.png",
         data:"public/files/lightcurve_subtracted_2022aagp.csv"
     },
@@ -151,6 +261,9 @@ const supernovae = [
     {
         name:"SN2024gy",
         type:"II",
+        ra:"10:55:33.2",
+        dec:"+22:11:44.5",
+        discoveryDate:"2024-02-18",
         image:"public/files/SN2024gy_all_measurements_lightcurve.png",
         data:"public/files/SN2024gy_all_measurements.txt"
     },
@@ -158,35 +271,48 @@ const supernovae = [
     {
         name:"SN2023rbk",
         type:"Ia",
+        ra:"06:44:55.1",
+        dec:"-02:33:44.8",
+        discoveryDate:"2023-07-08",
         image:"public/files/lightcurve_SN2023rbk.png",
         data:"public/files/lightcurve_SN2023rbk.txt"
     }
 
 ];
-const container = document.getElementById("container");
+
+const tableBody = document.getElementById("tableBody");
 
 supernovae.forEach(sn => {
 
-    const card = document.createElement("div");
-    card.className = "card";
+    const row = document.createElement("tr");
 
-    card.innerHTML = `
-        <h2>${sn.name}</h2>
+    row.innerHTML = `
 
-        <img src="${sn.image}" alt="${sn.name}">
+        <td>${sn.name}</td>
 
-        <div class="meta">
-            <p><b>Type:</b> ${sn.type}</p>
+        <td>${sn.type}</td>
 
-            <p>
-                <a href="${sn.data}" target="_blank">
-                    Download Data
-                </a>
-            </p>
-        </div>
+        <td>${sn.ra}</td>
+
+        <td>${sn.dec}</td>
+
+        <td>${sn.discoveryDate}</td>
+
+        <td class="downloads">
+
+            <a href="${sn.image}" target="_blank">
+                Image
+            </a>
+
+            <a href="${sn.data}" target="_blank">
+                Data
+            </a>
+
+        </td>
+
     `;
 
-    container.appendChild(card);
+    tableBody.appendChild(row);
 
 });
 
