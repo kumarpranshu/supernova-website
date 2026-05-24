@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supernova Database</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#111;
+            color:white;
+            margin:0;
+            padding:20px;
+        }
+
+        h1{
+            text-align:center;
+        }
+
+        .grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+            gap:20px;
+            margin-top:30px;
+        }
+
+        .card{
+            background:#1e1e1e;
+            border-radius:10px;
+            padding:15px;
+        }
+
+        img{
+            width:100%;
+            border-radius:10px;
+            background:white;
+        }
+
+        a{
+            color:#4da3ff;
+        }
+
+        .meta{
+            margin-top:10px;
+            line-height:1.6;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Supernova Database</h1>
+
+<div class="grid" id="container"></div>
+
+<script>
+
+const supernovae = [
+
+    {
+        name:"SN2023ixf",
+        type:"II",
+        image:"public/files/lightcurve_SN2023ixf.png",
+        data:"public/files/combined_photometry_SN2023ixf.txt"
+    },
+
+    {
+        name:"SN2023mut",
+        type:"IIb",
+        image:"public/files/lightcurve_SN2023mut.png",
+        data:"public/files/combined_photometry_SN2023mut.txt"
+    },
+
+    {
+        name:"SN2023rvj",
+        type:"II",
+        image:"public/files/lightcurve_SN2023rvj.png",
+        data:"public/files/combined_photometry_SN2023rvj.txt"
+    },
+
+    {
+        name:"SN2025advo",
+        type:"II",
+        image:"public/files/lightcurve_2025advo.png",
+        data:"public/files/lightcurve_2025advo.csv"
+    },
+
+    {
+        name:"SN2022wpy",
+        type:"Ia",
+        image:"public/files/lightcurve_SN2022wpy.png",
+        data:"public/files/lightcurve_SN2022wpy.txt"
+    },
+
+    {
+        name:"SN2023axu",
+        type:"II",
+        image:"public/files/lightcurve_SN2023axu.png",
+        data:"public/files/lightcurve_SN2023axu.txt"
+    },
+
+    {
+        name:"SN2023azx",
+        type:"Ib-c",
+        image:"public/files/lightcurve_SN2023azx.png",
+        data:"public/files/lightcurve_SN2023azx.txt"
+    },
+
+    {
+        name:"SN2023bee",
+        type:"Ia",
+        image:"public/files/lightcurve_SN2023bee.png",
+        data:"public/files/lightcurve_SN2023bee.txt"
+    },
+
+    {
+        name:"SN2023xtg",
+        type:"Ia",
+        image:"public/files/lightcurve_SN2023xtg.png",
+        data:"public/files/lightcurve_SN2023xtg.txt"
+    },
+
+    {
+        name:"SN2024cld",
+        type:"II",
+        image:"public/files/lightcurve_SN2024cld.png",
+        data:"public/files/lightcurve_SN2024cld.txt"
+    },
+
+    {
+        name:"SN2024drv",
+        type:"II",
+        image:"public/files/lightcurve_SN2024drv.png",
+        data:"public/files/lightcurve_SN2024drv.txt"
+    },
+
+    {
+        name:"SN2024dy",
+        type:"Ib",
+        image:"public/files/lightcurve_SN2024dy.png",
+        data:"public/files/lightcurve_SN2024dy.txt"
+    },
+
+    {
+        name:"SN2022aagp",
+        type:"II",
+        image:"public/files/lightcurve_subtracted_2022aagp.png",
+        data:"public/files/lightcurve_subtracted_2022aagp.csv"
+    },
+
+    {
+        name:"SN2024gy",
+        type:"II",
+        image:"public/files/SN2024gy_all_measurements_lightcurve.png",
+        data:"public/files/SN2024gy_all_measurements.txt"
+    },
+
+    {
+        name:"SN2023rbk",
+        type:"Ia",
+        image:"public/files/lightcurve_SN2023rbk.png",
+        data:"public/files/lightcurve_SN2023rbk.txt"
+    }
+
+];
+const container = document.getElementById("container");
+
+supernovae.forEach(sn => {
+
+    const card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+        <h2>${sn.name}</h2>
+
+        <img src="${sn.image}" alt="${sn.name}">
+
+        <div class="meta">
+            <p><b>Type:</b> ${sn.type}</p>
+
+            <p>
+                <a href="${sn.data}" target="_blank">
+                    Download Data
+                </a>
+            </p>
+        </div>
+    `;
+
+    container.appendChild(card);
+
+});
+
+</script>
+
+</body>
+</html>
