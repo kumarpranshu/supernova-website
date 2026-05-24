@@ -2,87 +2,174 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Supernova Database</title>
+    <title>ARIES 1.3m DFOT Supernova Database</title>
 
     <style>
 
+        *{
+            box-sizing: border-box;
+        }
+
         body{
-            font-family: Arial, sans-serif;
-            background:#111;
-            color:white;
             margin:0;
-            padding:30px;
+            padding:40px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background:#f5f7fb;
+            color:#1e293b;
+        }
+
+        .container{
+            max-width:1400px;
+            margin:auto;
         }
 
         h1{
             text-align:center;
+            font-size:3.2rem;
+            color:#1e3a8a;
             margin-bottom:10px;
+            font-weight:800;
+            letter-spacing:-1px;
         }
 
-        p{
+        .subtitle{
             text-align:center;
-            color:#cccccc;
+            font-size:1.1rem;
+            color:#64748b;
+            margin-bottom:40px;
         }
 
-        .download-all{
-            text-align:center;
-            margin:25px 0;
+        .topbar{
+            display:flex;
+            justify-content:flex-end;
+            margin-bottom:25px;
         }
 
-        .download-all a{
-            background:#2979ff;
+        .download-btn{
+            background:linear-gradient(135deg,#2563eb,#4f46e5);
             color:white;
-            padding:12px 20px;
             text-decoration:none;
-            border-radius:8px;
-            font-weight:bold;
+            padding:14px 22px;
+            border-radius:12px;
+            font-weight:600;
+            transition:0.2s ease;
+            box-shadow:0 4px 12px rgba(37,99,235,0.25);
+        }
+
+        .download-btn:hover{
+            transform:translateY(-2px);
         }
 
         table{
             width:100%;
             border-collapse:collapse;
-            margin-top:20px;
-            background:#1e1e1e;
-            border-radius:10px;
+            background:white;
+            border-radius:18px;
             overflow:hidden;
+            box-shadow:0 10px 30px rgba(0,0,0,0.08);
         }
 
         th{
-            background:#222;
-            padding:14px;
+            background:#eef4ff;
+            color:#1e3a8a;
             text-align:left;
+            padding:18px;
+            font-size:1rem;
         }
 
         td{
-            padding:12px 14px;
-            border-top:1px solid #333;
+            padding:16px 18px;
+            border-top:1px solid #e5e7eb;
+            font-size:0.96rem;
         }
 
         tr:hover{
-            background:#2a2a2a;
+            background:#f8fafc;
         }
 
         a{
-            color:#4da3ff;
             text-decoration:none;
-            font-weight:bold;
+            color:#2563eb;
+            font-weight:600;
         }
 
         .downloads a{
-            margin-right:12px;
+            margin-right:14px;
+        }
+
+        .type-badge{
+            padding:6px 12px;
+            border-radius:999px;
+            font-size:0.85rem;
+            font-weight:700;
+            display:inline-block;
+        }
+
+        .type-II{
+            background:#dbeafe;
+            color:#1d4ed8;
+        }
+
+        .type-Ia{
+            background:#ede9fe;
+            color:#7c3aed;
+        }
+
+        .type-IIb{
+            background:#dcfce7;
+            color:#15803d;
+        }
+
+        .type-Ibc{
+            background:#fef3c7;
+            color:#b45309;
+        }
+
+        .type-Ib{
+            background:#fee2e2;
+            color:#b91c1c;
+        }
+
+        footer{
+            text-align:center;
+            margin-top:40px;
+            color:#64748b;
+            font-size:0.95rem;
         }
 
         @media(max-width:900px){
 
             body{
-                padding:10px;
+                padding:15px;
+            }
+
+            h1{
+                font-size:2rem;
+            }
+
+            .subtitle{
+                font-size:0.95rem;
             }
 
             table{
-                font-size:13px;
+                font-size:12px;
+            }
+
+            td, th{
+                padding:10px;
+            }
+
+            .download-btn{
+                width:100%;
+                text-align:center;
+            }
+
+            .topbar{
+                justify-content:center;
             }
 
         }
@@ -93,16 +180,24 @@
 
 <body>
 
-    <h1>Supernova Database</h1>
+<div class="container">
 
-    <p>
-        Public light curves and photometric data products.
-    </p>
+    <h1>ARIES 1.3m DFOT Supernova Database</h1>
 
-    <div class="download-all">
-        <a href="public/files/all_supernova_data.csv" download>
+    <div class="subtitle">
+        Public light curves and photometric data products from the ARIES 1.3m Devasthal Fast Optical Telescope (DFOT).
+    </div>
+
+    <div class="topbar">
+
+        <a class="download-btn"
+           href="public/files/all_supernova_data.csv"
+           download>
+
             Download All Data as CSV
+
         </a>
+
     </div>
 
     <table>
@@ -123,6 +218,12 @@
         <tbody id="tableBody"></tbody>
 
     </table>
+
+    <footer>
+        ARIES • Devasthal Fast Optical Telescope (DFOT)
+    </footer>
+
+</div>
 
 <script>
 
@@ -284,13 +385,35 @@ const tableBody = document.getElementById("tableBody");
 
 supernovae.forEach(sn => {
 
+    let typeClass = "type-II";
+
+    if(sn.type === "Ia"){
+        typeClass = "type-Ia";
+    }
+
+    if(sn.type === "IIb"){
+        typeClass = "type-IIb";
+    }
+
+    if(sn.type === "Ib-c"){
+        typeClass = "type-Ibc";
+    }
+
+    if(sn.type === "Ib"){
+        typeClass = "type-Ib";
+    }
+
     const row = document.createElement("tr");
 
     row.innerHTML = `
 
-        <td>${sn.name}</td>
+        <td><strong>${sn.name}</strong></td>
 
-        <td>${sn.type}</td>
+        <td>
+            <span class="type-badge ${typeClass}">
+                ${sn.type}
+            </span>
+        </td>
 
         <td>${sn.ra}</td>
 
